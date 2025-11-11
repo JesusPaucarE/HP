@@ -3,102 +3,144 @@ import json
 import os
 from datetime import datetime
 
-st.set_page_config(
-    page_title="Invitación Mágica al Cine",
-    page_icon="⚡",
-    layout="centered",
-)
+st.set_page_config(page_title="Invitaciones Mágicas", page_icon="✉️", layout="centered")
 
 st.markdown("""
 <style>
-    .main {
-        background-color: #0d1b2a;
-        color: #f0e6d2;
-    }
-    h1, h2, h3 {
-        font-family: 'Cinzel', serif;
-        color: #ffd700;
-    }
-    .invitacion {
-        background-color: #1b263b;
-        padding: 20px;
-        border-radius: 10px;
-        border: 2px solid #ffd700;
-        margin-bottom: 20px;
-    }
-    .aceptar {
-        background-color: #2a9d8f;
-        color: white;
-        font-weight: bold;
-    }
-    .rechazar {
-        background-color: #e76f51;
-        color: white;
-        font-weight: bold;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=IM+Fell+English+SC&display=swap');
+
+body {
+    background-color: #0d1b2a;
+    color: #f0e6d2;
+}
+
+.hogwarts-letter {
+    background: url('https://www.transparenttextures.com/patterns/paper.png'), #fdf6e3;
+    color: #3e2723;
+    padding: 40px;
+    border: 2px solid #8b6914;
+    border-radius: 10px;
+    font-family: 'IM Fell English SC', serif;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ticket-flight {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    animation: slideIn 1.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+h1, h2 {
+    font-family: 'Cinzel', serif;
+    color: #ffd700;
+}
 </style>
 """, unsafe_allow_html=True)
 
-st.title("⚡ Invitación Mágica al Cine ⚡")
-st.subheader("¡Una experiencia de Harry Potter como nunca antes!")
-
-st.markdown("""
-<div class="invitacion">
-    <h2>¡Estás invitada, elegida de Hogwarts!</h2>
-    <p>El día <strong>15 de noviembre</strong> se llevará a cabo una función especial de cine con todas las películas de <strong>Harry Potter</strong>.</p>
-    <p>Habrá:</p>
-    <ul>
-        <li>🍿 Palomitas mágicas</li>
-        <li>🧙‍♀️ Concurso de disfraces</li>
-        <li>📚 Trivia del mundo mágico</li>
-        <li>🎁 Sorpasas para los más fieles fans</li>
-    </ul>
-    <p>¿Te atreves a acompañarnos en esta aventura?</p>
-</div>
-""", unsafe_allow_html=True)
-
-st.header("¿Aceptas la invitación?")
-
-nombre = st.text_input("Escribe tu nombre mágico:")
-respuesta = st.radio("¿Vendrás a la función?", ("Sí, ¡quiero ser parte de la magia!", "No, prefiero quedarme en el mundo muggle"))
-
-if st.button("Enviar respuesta"):
-    if nombre.strip() == "":
-        st.warning("Por favor, ingresa tu nombre antes de enviar.")
+def guardar_respuesta(archivo, nombre, respuesta):
+    data = {
+        "nombre": nombre,
+        "respuesta": respuesta,
+        "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    if os.path.exists(archivo):
+        with open(archivo, "r", encoding="utf-8") as f:
+            lista = json.load(f)
     else:
-        respuesta_dict = {
-            "nombre": nombre,
-            "respuesta": respuesta,
-            "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
+        lista = []
+    lista.append(data)
+    with open(archivo, "w", encoding="utf-8") as f:
+        json.dump(lista, f, ensure_ascii=False, indent=4)
 
-        archivo_respuestas = "respuestas_invitacion.json"
+tab1, tab2 = st.tabs(["📜 Carta de Hogwarts", "✈️ Pase de Abordar Mágico"])
 
-        if os.path.exists(archivo_respuestas):
-            with open(archivo_respuestas, "r", encoding="utf-8") as f:
-                respuestas = json.load(f)
+with tab1:
+    st.title("📜 Invitación Mágica al Cine")
+    st.markdown("""
+    <div class="hogwarts-letter">
+        <h2>Estimada Muggle de Corazón Mágico,</h2>
+        <p>Nos complace invitarte a una <strong>función especial de Harry Potter</strong> el día:</p>
+        <h3>📅 15 de noviembre</h3>
+        <p>En el Salón Común de las Fanáticas.</p>
+        <p>Habrá:</p>
+        <ul>
+            <li>🍿 Palomitas mágicas</li>
+            <li>🧙‍♀️ Concurso de disfraces</li>
+            <li>🎬 Maratón de películas</li>
+            <li>🎁 Sorpresas mágicas</li>
+        </ul>
+        <p>Esperamos contar con tu presencia. No olvides tu varita.</p>
+        <p>Atentamente,</p>
+        <p><strong>Albus Dumbledore</strong><br>Director de Eventos Mágicos</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.subheader("¿Aceptas esta invitación mágica?")
+    nombre_hp = st.text_input("Tu nombre mágico:", key="nombre_hp")
+    respuesta_hp = st.radio("¿Vendrás?", ("Sí, ¡mi escoba ya está lista!", "No, tengo clases de pociones"), key="respuesta_hp")
+
+    if st.button("Enviar respuesta mágica"):
+        if nombre_hp.strip() == "":
+            st.warning("Por favor, ingresa tu nombre.")
         else:
-            respuestas = []
+            guardar_respuesta("respuestas_harry_potter.json", nombre_hp, respuesta_hp)
+            st.success("¡Respuesta enviada! Esperamos verte pronto.")
 
-        respuestas.append(respuesta_dict)
+with tab2:
+    st.title("✈️ Pase de Abordar Mágico")
+    st.markdown("""
+    <div class="ticket-flight">
+        <h2>✈️ Invitación a un Vuelo Mágico</h2>
+        <p><strong>Origen:</strong> Tu ciudad</p>
+        <p><strong>Destino:</strong> Un país de ensueño</p>
+        <p><strong>Fecha:</strong> Próximamente</p>
+        <p><strong>Vuelo:</strong> MX-2025-MAGIC</p>
+        <p><strong>Puerta:</strong> 9 ¾ (obviamente)</p>
+        <p>Equipaje emocional permitido. Maletas mágicas bienvenidas.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        with open(archivo_respuestas, "w", encoding="utf-8") as f:
-            json.dump(respuestas, f, ensure_ascii=False, indent=4)
+    st.subheader("¿Te apuntas a esta aventura?")
+    nombre_vuelo = st.text_input("Tu nombre para el pasaporte mágico:", key="nombre_vuelo")
+    respuesta_vuelo = st.radio("¿Volarás con nosotros?", ("Sí, ¡mi escoba no puede esperar!", "No, prefiero quedarme en tierra firme"), key="respuesta_vuelo")
 
-        st.success("¡Tu respuesta ha sido enviada con éxito!")
-
-        if "Sí" in respuesta:
-            st.balloons()
-            st.markdown("🎉 ¡Nos vemos el 15 de noviembre! Trae tu varita y tu mejor disfraz.")
+    if st.button("Enviar respuesta de vuelo"):
+        if nombre_vuelo.strip() == "":
+            st.warning("Por favor, ingresa tu nombre.")
         else:
-            st.markdown("😢 Qué pena... pero si cambias de opinión, ¡la puerta de Hogwarts siempre estará abierta!")
+            guardar_respuesta("respuestas_vuelo_magico.json", nombre_vuelo, respuesta_vuelo)
+            st.success("¡Respuesta de vuelo registrada! Nos vemos en el cielo.")
 
 if st.checkbox("Ver respuestas guardadas"):
-    if os.path.exists("respuestas_invitacion.json"):
-        with open("respuestas_invitacion.json", "r", encoding="utf-8") as f:
-            respuestas = json.load(f)
-        st.write("Respuestas recibidas:")
-        for r in respuestas:
+    st.subheader("Respuestas de Harry Potter")
+    if os.path.exists("respuestas_harry_potter.json"):
+        with open("respuestas_harry_potter.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for r in data:
             st.write(f"- **{r['nombre']}**: {r['respuesta']} ({r['fecha']})")
     else:
-        st.info("Aún no se han guardado respuestas.")
+        st.info("Sin respuestas aún.")
+
+    st.subheader("Respuestas del Vuelo Mágico")
+    if os.path.exists("respuestas_vuelo_magico.json"):
+        with open("respuestas_vuelo_magico.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for r in data:
+            st.write(f"- **{r['nombre']}**: {r['respuesta']} ({r['fecha']})")
+    else:
+        st.info("Sin respuestas aún.")

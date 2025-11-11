@@ -73,7 +73,7 @@ with tab1:
     st.title("📜 Invitación Mágica al Cine")
     st.markdown("""
     <div class="hogwarts-letter">
-        <h2>Estimada Muggle de Corazón Mágico,</h2>
+        <h2>Estimada Maga de buen Corazón Mágico,</h2>
         <p>Me complace invitarte a una <strong>función especial de Harry Potter</strong> el día:</p>
         <h3>📅 15 de noviembre</h3>
         <p>En el Salón Común de las Fanáticas (Shopping Don Pedro).</p>

@@ -85,7 +85,7 @@ with tab1:
         </ul>
         <p>Espero contar con tu presencia. No olvides tu varita.</p>
         <p>Atentamente,</p>
-        <p><strong>Albus Dumbledore</strong><br>Director de Eventos Mágicos</p>
+        <p><strong>Yisus Dumbledore</strong><br>Director de Eventos Mágicos</p>
     </div>
     """, unsafe_allow_html=True)
 

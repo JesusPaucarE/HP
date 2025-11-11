@@ -74,17 +74,16 @@ with tab1:
     st.markdown("""
     <div class="hogwarts-letter">
         <h2>Estimada Muggle de Corazón Mágico,</h2>
-        <p>Nos complace invitarte a una <strong>función especial de Harry Potter</strong> el día:</p>
+        <p>Me complace invitarte a una <strong>función especial de Harry Potter</strong> el día:</p>
         <h3>📅 15 de noviembre</h3>
-        <p>En el Salón Común de las Fanáticas.</p>
+        <p>En el Salón Común de las Fanáticas (Shopping Don Pedro).</p>
         <p>Habrá:</p>
         <ul>
             <li>🍿 Palomitas mágicas</li>
             <li>🧙‍♀️ Concurso de disfraces</li>
-            <li>🎬 Maratón de películas</li>
             <li>🎁 Sorpresas mágicas</li>
         </ul>
-        <p>Esperamos contar con tu presencia. No olvides tu varita.</p>
+        <p>Espero contar con tu presencia. No olvides tu varita.</p>
         <p>Atentamente,</p>
         <p><strong>Albus Dumbledore</strong><br>Director de Eventos Mágicos</p>
     </div>
@@ -106,12 +105,12 @@ with tab2:
     st.markdown("""
     <div class="ticket-flight">
         <h2>✈️ Invitación a un Vuelo Mágico</h2>
-        <p><strong>Origen:</strong> Tu ciudad</p>
-        <p><strong>Destino:</strong> Un país de ensueño</p>
-        <p><strong>Fecha:</strong> Próximamente</p>
+        <p><strong>Origen:</strong> Popayán (Aeropuerto más cercano)</p>
+        <p><strong>Destino:</strong> Un país de ensueño ^^</p>
+        <p><strong>Fecha:</strong> 22/01/2026</p>
         <p><strong>Vuelo:</strong> MX-2025-MAGIC</p>
         <p><strong>Puerta:</strong> 9 ¾ (obviamente)</p>
-        <p>Equipaje emocional permitido. Maletas mágicas bienvenidas.</p>
+        <p>Equipaje emocional permitido. Maletas mágicas bienvenidas. Los boletos están cubiertos.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -126,21 +125,21 @@ with tab2:
             guardar_respuesta("respuestas_vuelo_magico.json", nombre_vuelo, respuesta_vuelo)
             st.success("¡Respuesta de vuelo registrada! Nos vemos en el cielo.")
 
-if st.checkbox("Ver respuestas guardadas"):
-    st.subheader("Respuestas de Harry Potter")
-    if os.path.exists("respuestas_harry_potter.json"):
-        with open("respuestas_harry_potter.json", "r", encoding="utf-8") as f:
-            data = json.load(f)
-        for r in data:
-            st.write(f"- **{r['nombre']}**: {r['respuesta']} ({r['fecha']})")
-    else:
-        st.info("Sin respuestas aún.")
+#if st.checkbox("Ver respuestas guardadas"):
+#    st.subheader("Respuestas de Harry Potter")
+#    if os.path.exists("respuestas_harry_potter.json"):
+#        with open("respuestas_harry_potter.json", "r", encoding="utf-8") as f:
+#            data = json.load(f)
+#        for r in data:
+#            st.write(f"- **{r['nombre']}**: {r['respuesta']} ({r['fecha']})")
+#    else:
+#        st.info("Sin respuestas aún.")
 
-    st.subheader("Respuestas del Vuelo Mágico")
-    if os.path.exists("respuestas_vuelo_magico.json"):
-        with open("respuestas_vuelo_magico.json", "r", encoding="utf-8") as f:
-            data = json.load(f)
-        for r in data:
-            st.write(f"- **{r['nombre']}**: {r['respuesta']} ({r['fecha']})")
-    else:
-        st.info("Sin respuestas aún.")
+#    st.subheader("Respuestas del Vuelo Mágico")
+#    if os.path.exists("respuestas_vuelo_magico.json"):
+#        with open("respuestas_vuelo_magico.json", "r", encoding="utf-8") as f:
+#            data = json.load(f)
+#        for r in data:
+#            st.write(f"- **{r['nombre']}**: {r['respuesta']} ({r['fecha']})")
+#    else:
+#        st.info("Sin respuestas aún.")

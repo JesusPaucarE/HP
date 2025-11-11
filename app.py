@@ -91,7 +91,7 @@ with tab1:
 
     st.subheader("¿Aceptas esta invitación mágica?")
     nombre_hp = st.text_input("Tu nombre mágico:", key="nombre_hp")
-    respuesta_hp = st.radio("¿Vendrás?", ("Sí, ¡mi escoba ya está lista!", "No, tengo clases de pociones"), key="respuesta_hp")
+    respuesta_hp = st.radio("¿Vendrás?", ("Sí, ¡mi escoba ya está lista!", "Sí, !iré con mi libro de pociones!"), key="respuesta_hp")
 
     if st.button("Enviar respuesta mágica"):
         if nombre_hp.strip() == "":
@@ -116,7 +116,7 @@ with tab2:
 
     st.subheader("¿Te apuntas a esta aventura?")
     nombre_vuelo = st.text_input("Tu nombre para el pasaporte mágico:", key="nombre_vuelo")
-    respuesta_vuelo = st.radio("¿Volarás con nosotros?", ("Sí, ¡mi escoba no puede esperar!", "No, prefiero quedarme en tierra firme"), key="respuesta_vuelo")
+    respuesta_vuelo = st.radio("¿Volarás para esta aventura?", ("Sí, ¡mi escoba no puede esperar!", "Sí, !estoy lista para esta aventura!"), key="respuesta_vuelo")
 
     if st.button("Enviar respuesta de vuelo"):
         if nombre_vuelo.strip() == "":
